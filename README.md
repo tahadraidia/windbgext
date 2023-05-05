@@ -9,3 +9,5 @@ nmake.exe -f .\Makefile
 ```
 
 If you would like to see examples of how to integrate this class into your project, please refer to the following resources.
+
+- https://github.com/tahadraidia/windbg-arsenal/tree/main/handleex
