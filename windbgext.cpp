@@ -35,8 +35,8 @@ ULONG64 WinDBGExt::EvaluateArgAsINT64(PCSTR args) {
 std::vector<SYSTEM_HANDLE> WinDBGExt::GetDebuggeeHandles() {
     std::vector<SYSTEM_HANDLE> handles;
     NTSTATUS status = 0;
-    HMODULE hNtDll = GetModuleHandle("ntdll.dll");
-    _NtQuerySystemInformation pNtQuerySystemInformation = (_NtQuerySystemInformation)GetProcAddress(hNtDll, "NtQuerySystemInformation");
+    HMODULE hNtDll = ::GetModuleHandle("ntdll.dll");
+    _NtQuerySystemInformation pNtQuerySystemInformation = (_NtQuerySystemInformation)::GetProcAddress(hNtDll, "NtQuerySystemInformation");
 
     ULONG ulSize;
     status = pNtQuerySystemInformation(SystemHandleInformation, nullptr, 0, &ulSize);
@@ -46,7 +46,7 @@ std::vector<SYSTEM_HANDLE> WinDBGExt::GetDebuggeeHandles() {
 	return handles;
     }
 
-    PSYSTEM_HANDLE_INFORMATION pBuffer = (PSYSTEM_HANDLE_INFORMATION)malloc(ulSize);
+    PSYSTEM_HANDLE_INFORMATION pBuffer = (PSYSTEM_HANDLE_INFORMATION)::malloc(ulSize);
 
     if(!pBuffer) {
 	PrintOut("GetFilenameFromHandle::Malloc() pBuffer failed: 0x%x\n",
@@ -56,7 +56,7 @@ std::vector<SYSTEM_HANDLE> WinDBGExt::GetDebuggeeHandles() {
 
 
     do {
-	pBuffer = (PSYSTEM_HANDLE_INFORMATION)malloc(ulSize);
+	pBuffer = (PSYSTEM_HANDLE_INFORMATION)::malloc(ulSize);
 	if(!pBuffer){
 	    PrintOut("GetFilenameFromHandle::Malloc() pBuffer failed: 0x%x\n",
 			   ::GetLastError());
@@ -79,7 +79,7 @@ std::vector<SYSTEM_HANDLE> WinDBGExt::GetDebuggeeHandles() {
 	}
     }
 
-    free(pBuffer);
+    ::free(pBuffer);
     pBuffer = nullptr;
 
     return handles;
