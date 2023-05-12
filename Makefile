@@ -1,7 +1,7 @@
 CC=cl.exe
-CFLAGS=/nologo /MT /LD /std:c++17 /EHsc
+CFLAGS=/nologo /MT /LD /std:c++17 /EHsc /W4
 
-fh.dll:
+foobar.dll:
 	$(CC) foobar.cpp windbgext.cpp $(CFLAGS)
 
 clean:
@@ -9,6 +9,3 @@ clean:
 	del *.lib
 	del *.exp
 	del *.obj
-
-lint:
-	cpplint ./foobar.cpp

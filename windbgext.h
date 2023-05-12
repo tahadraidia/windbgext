@@ -18,11 +18,18 @@ private:
 
 public:
 	WinDBGExt(IDebugClient* pDebugClient);
-	VOID PrintOut(std::string const format, ...);
 	HANDLE GetDebuggeeHandle();
 	DWORD GetDebuggeePID();
 	ULONG64 EvaluateArgAsINT64(PCSTR args);
 	std::vector<SYSTEM_HANDLE> GetDebuggeeHandles();
+	template <class ... Args>
+	void PrintOut(const std::string& format, Args ... args)
+	{
+	    _pDebugControl->Output(
+			    DEBUG_OUTPUT_NORMAL,
+			    format.c_str(),
+			    args...);
+	}
 };
 
 #endif

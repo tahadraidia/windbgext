@@ -1,8 +1,6 @@
+#include <stdio.h>
 #include <windows.h>
 #include <Dbgeng.h>
-#include <stdio.h>
-#include <string>
-#include <psapi.h>
 
 #include "windbgext.h"
 
@@ -11,7 +9,7 @@
 
 extern "C" __declspec(dllexport) HRESULT CALLBACK
 foobar(IDebugClient* pDebugClient, PCSTR args) {
-
+    UNREFERENCED_PARAMETER(args);
     WinDBGExt windbgExt(pDebugClient);
     const HANDLE handle = windbgExt.GetDebuggeeHandle();
     const DWORD pid = windbgExt.GetDebuggeePID();

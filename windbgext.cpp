@@ -31,25 +31,13 @@ ULONG64 WinDBGExt::EvaluateArgAsINT64(PCSTR args) {
     return _debug_value.I64;
 }
 
-void WinDBGExt::PrintOut(std::string const format, ...) {
-    va_list args;
-    char buffer[MAX_PATH] = { 0 };
-    va_start(args, format);
-    vsprintf_s(buffer, sizeof(buffer), format.c_str(), args);
-    _pDebugControl->Output(DEBUG_OUTPUT_NORMAL,
-			   "%s\n",
-    buffer);
-    va_end(args);
-}
 
 std::vector<SYSTEM_HANDLE> WinDBGExt::GetDebuggeeHandles() {
     std::vector<SYSTEM_HANDLE> handles;
     NTSTATUS status = 0;
     HMODULE hNtDll = GetModuleHandle("ntdll.dll");
     _NtQuerySystemInformation pNtQuerySystemInformation = (_NtQuerySystemInformation)GetProcAddress(hNtDll, "NtQuerySystemInformation");
-    _NtQueryObject pNtQueryObject = (_NtQueryObject)GetProcAddress(hNtDll, "NtQueryObject");
 
-    // Get the system handle information
     ULONG ulSize;
     status = pNtQuerySystemInformation(SystemHandleInformation, nullptr, 0, &ulSize);
 
@@ -83,9 +71,6 @@ std::vector<SYSTEM_HANDLE> WinDBGExt::GetDebuggeeHandles() {
 	return handles;
     }
 
-
-    // Find the handle in the system handle information
-    PSYSTEM_HANDLE pHandleInfo = (PSYSTEM_HANDLE)pBuffer;
 
     for (ULONG i = 0; i <= pBuffer->HandleCount; i++) {
 	const DWORD pid = GetDebuggeePID();

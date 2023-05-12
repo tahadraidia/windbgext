@@ -6,7 +6,6 @@
 #endif
 
 #include <windows.h>
-#include <stdio.h>
 
 #define NT_SUCCESS(x) ((x) >= 0)
 #define STATUS_INFO_LENGTH_MISMATCH 0xc0000004
