@@ -1,5 +1,5 @@
-#ifndef _WINDBGEXT_H
-#define _WINDBGEXT_H
+#ifndef _WINDBGEXT_HPP
+#define _WINDBGEXT_HPP
 
 #include <Windows.h>
 #include <Dbgeng.h>

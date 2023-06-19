@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <Dbgeng.h>
 
-#include "windbgext.h"
+#include "windbgext.hpp"
 
 #define EXT_MAJOR_VER  1
 #define EXT_MINOR_VER  0

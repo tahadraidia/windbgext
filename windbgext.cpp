@@ -1,4 +1,4 @@
-#include "windbgext.h" 
+#include "windbgext.hpp"
 
 WinDBGExt::WinDBGExt(IDebugClient* pDebugClient) {
     _pDebugClient = pDebugClient;
